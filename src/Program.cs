@@ -10,6 +10,8 @@ namespace BinarySearchTree
     {
         static void Main(string[] args)
         {
+            BinarySearchNode<string> bsn = new BinarySearchNode<string>("hello phil");
         }
-    }
+              
+    }    
 }
