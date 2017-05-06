@@ -6,12 +6,27 @@ using System.Threading.Tasks;
 
 namespace BinarySearchTree
 {
-    class Program
+    public class Program
     {
+        #region MyCustomer
+        public class MyCustomer
+        {
+            public string name;
+            public string phone;
+
+            private MyCustomer() { }
+            public MyCustomer(string name, string phone) : this()
+            {
+                this.name = name;
+                this.phone = phone;
+            }
+        }
+        #endregion MyCustomer
+
         static void Main(string[] args)
         {
-            BinarySearchNode<string> bsn = new BinarySearchNode<string>("hello phil");
+            //BinarySearchNode<MyCustomer> bsn = new BinarySearchNode<MyCustomer>("phil","2818817146");
         }
-              
-    }    
+
+    }
 }
