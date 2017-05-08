@@ -9,23 +9,39 @@ namespace BinarySearchTree
     public class Program
     {
         #region MyCustomer
-        public class MyCustomer
+        public class MyCustomer : IComparable<MyCustomer>
         {
             public string name;
             public string phone;
 
+            #region Constructors
             private MyCustomer() { }
             public MyCustomer(string name, string phone) : this()
             {
                 this.name = name;
                 this.phone = phone;
             }
+            #endregion Constructors
+
+            #region Methods
+            public int CompareTo(MyCustomer obj)
+            {
+                if (obj == null)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return string.Compare(name, obj.name, true);
+                }
+            }
+            #endregion Methods
         }
         #endregion MyCustomer
 
         static void Main(string[] args)
         {
-            //BinarySearchNode<MyCustomer> bsn = new BinarySearchNode<MyCustomer>("phil","2818817146");
+
         }
 
     }
