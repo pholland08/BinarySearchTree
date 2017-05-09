@@ -35,7 +35,7 @@ namespace BinarySearchTree
         #endregion Constructors
 
         #region Methods
-        // TODO Write method Insert
+        // Iterative Insert method
         public void Insert(T obj)
         {
             Insert(obj, ref _Root);
@@ -48,7 +48,6 @@ namespace BinarySearchTree
             if (Root == null)
             {
                 newnode.LeftChild = newnode.RightChild = newnode;
-                //newnode.RightFlag = true; // newnode.LeftFlag set to false at instantiation 
                 Root = newnode;
             }
             else
@@ -92,9 +91,81 @@ namespace BinarySearchTree
                 }
             }
         }
-        // TODO Write method FindIterative
-        // TODO Write method FindRecursive
+        // Iterative search method
+        public BinarySearchNode<T> IterativeSearch(T obj)
+        {
+            int remaining = Count;
+            BinarySearchNode<T> current = Root;
+            bool finished = false;
+            while (!finished)
+            {
+                if (remaining == 0)
+                {
+                    current = Root;
+                    finished = true;
+                }
+                if (current != null)
+                {
+                    if (current.Info.CompareTo(obj) == 0)
+                    {
+                        finished = true;
+                    }
+                    else if (current.Info.CompareTo(obj) == -1)
+                    {
+                        current = current.RightChild;
+                    }
+                    else
+                    {
+                        current = current.LeftChild;
+                    }
+                }
+                else
+                {
+                    finished = true;
+                }
+                remaining -= 1;
+            }
+            return current;
+
+        }
+        // Recursive search method
+        public BinarySearchNode<T> RecursiveSearch(BinarySearchNode<T> current, T obj)
+        {
+            if (current == null)
+            {
+                return current;
+            }
+            else if (current.Info.CompareTo(obj) == 0)
+            {
+                return current;
+            }
+            else if (current.Info.CompareTo(obj) == -1)
+            {
+                return RecursiveSearch(current.RightChild, obj);
+            }
+            else // If reached, current.Info must > obj
+            {
+                return RecursiveSearch(current.LeftChild, obj);
+            }
+        }
         // TODO Write method InOrderSuccessor
+        public BinarySearchNode<T> InorderSuccessor(T obj)
+        {
+            BinarySearchNode<T> P = RecursiveSearch(Root, obj);
+            BinarySearchNode<T> Q = P.RightChild;
+            if (!P.RightFlag)
+            {
+                return Q;
+            }
+            else
+            {
+                while (Q.LeftFlag)
+                {
+                    Q = Q.LeftChild;
+                }
+                return Q;
+            }
+        }
         // TODO Write method GetNodeInfo
         // Generic replacement for CustomerName and CustomerPhone
         public T GetNodeInfo(BinarySearchNode<T> node)
