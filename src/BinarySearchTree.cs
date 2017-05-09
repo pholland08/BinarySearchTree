@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BinarySearchTree
 {
@@ -189,7 +185,5 @@ namespace BinarySearchTree
                 
         #endregion Methods
 
-    }
-
-    // TODO Write class TreeStack for iterative methods
+    }    
 }
