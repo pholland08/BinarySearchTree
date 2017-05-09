@@ -25,8 +25,9 @@ namespace BinarySearchTree
         #region Constructors
         public BinarySearchTree()
         {
-            _Count = 0;
-            Root = null;
+            Root = new BinarySearchNode<T>();
+            Root.RightChild = Root.LeftChild = Root;
+            Root.RightFlag = true;
         }
         public BinarySearchTree(T info) : this()
         {
@@ -42,17 +43,17 @@ namespace BinarySearchTree
         }
         public void Insert(T obj, ref BinarySearchNode<T> Root)
         {
-            _Count += 1;
             BinarySearchNode<T> newnode = new BinarySearchNode<T>(obj);
             // Check if root node is empty
-            if (Root == null)
+            if (Root.LeftChild == Root)
             {
-                newnode.LeftChild = newnode.RightChild = newnode;
-                Root = newnode;
+                newnode.LeftChild = newnode.RightChild = Root;
+                Root.LeftChild = newnode;
+                Root.LeftFlag = true;
             }
             else
             {
-                BinarySearchNode<T> current = Root;
+                BinarySearchNode<T> current = Root.LeftChild;
                 bool finished = false;
                 while (!finished)
                 {
@@ -91,20 +92,15 @@ namespace BinarySearchTree
                 }
             }
         }
+
         // Iterative search method
         public BinarySearchNode<T> IterativeSearch(T obj)
         {
-            int remaining = Count;
-            BinarySearchNode<T> current = Root;
+            BinarySearchNode<T> current = Root.LeftChild;
             bool finished = false;
             while (!finished)
             {
-                if (remaining == 0)
-                {
-                    current = Root;
-                    finished = true;
-                }
-                if (current != null)
+                if (current != Root)
                 {
                     if (current.Info.CompareTo(obj) == 0)
                     {
@@ -121,17 +117,23 @@ namespace BinarySearchTree
                 }
                 else
                 {
+                    current = new BinarySearchNode<T>();
                     finished = true;
                 }
-                remaining -= 1;
             }
             return current;
 
         }
+
         // Recursive search method
+        public BinarySearchNode<T> RecursiveSearch(T obj)
+        {
+            return RecursiveSearch(Root.LeftChild, obj);
+        }
         public BinarySearchNode<T> RecursiveSearch(BinarySearchNode<T> current, T obj)
         {
-            if (current == null)
+
+            if (current == Root)
             {
                 return current;
             }
@@ -148,10 +150,11 @@ namespace BinarySearchTree
                 return RecursiveSearch(current.LeftChild, obj);
             }
         }
-        // TODO Write method InOrderSuccessor
+
+        // InOrderSuccessor method
         public BinarySearchNode<T> InorderSuccessor(T obj)
         {
-            BinarySearchNode<T> P = RecursiveSearch(Root, obj);
+            BinarySearchNode<T> P = RecursiveSearch(Root.LeftChild, obj);
             BinarySearchNode<T> Q = P.RightChild;
             if (!P.RightFlag)
             {
@@ -166,12 +169,24 @@ namespace BinarySearchTree
                 return Q;
             }
         }
-        // TODO Write method GetNodeInfo
-        // Generic replacement for CustomerName and CustomerPhone
+
+        // Generic replacement for CustomerName and CustomerPhone methods
         public T GetNodeInfo(BinarySearchNode<T> node)
         {
             return node.Info;
         }
+
+        // BuildTree method
+        public static BinarySearchTree<T> BuildBST(T[] arr)
+        {
+            BinarySearchTree<T> bst = new BinarySearchTree<T>();
+            foreach (T obj in arr)
+            {
+                bst.Insert(obj);
+            }
+            return bst;
+        }
+                
         #endregion Methods
 
     }

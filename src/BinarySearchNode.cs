@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BinarySearchTree
 {
-    public class BinarySearchNode<T> where T : IComparable<T> 
+    public class BinarySearchNode<T> where T : IComparable<T>
     {
         #region Fields
         // Links
@@ -54,7 +54,6 @@ namespace BinarySearchTree
             RightFlag = false;
             LeftChild = null;
             RightChild = null;
-
         }
         public BinarySearchNode(T Info) : this()
         {
