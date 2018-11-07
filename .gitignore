@@ -1,1 +1,11 @@
-!src
+!src/
+.vs/
+bin/
+obj/
+packages/
+Properties/
+*.csproj
+*.sln
+App.config
+*.csproj.user
+BSTOutput.txt
